@@ -7,14 +7,15 @@ get '/' do
 end
 
 post '/gateway' do
-  if params[:text].present?
+  if !params[:text].nil?
     action = params[:text].gsub(params[:trigger_word], '').strip
     case action
     when 'tabla' then table
     when 'lider' then leader
+    else respond_message 'Accion desconocida'
     end
   else
-    respond_message 'Error'
+    respond_message 'Escriba una opcion [tabla, lider]'
   end
 end
 
@@ -24,13 +25,13 @@ def respond_message(message)
     username: 'MundialitoBot' }.to_json
 end
 
-def get_table
+def table
   page = table_page
   table = page.search('.//table').first
-  headers = table.search('.//th').map { |th| th.text.squish }.to_s + "\n"
+  headers = table.search('.//th').map { |th| th.text.strip }.to_s + "\n"
   trs = table.search('.//tbody//tr')
   rows = trs.map do |tr|
-    tr.search('.//td').map { |td| td.text.squish }.to_s + "\n"
+    tr.search('.//td').map { |td| td.text.strip }.to_s + "\n"
   end
   message = "#{headers}\n#{rows}"
   respond_message message
