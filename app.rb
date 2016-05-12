@@ -8,7 +8,7 @@ end
 
 post '/gateway' do
   if !params[:text].nil?
-    action = params[:text].gsub(params[:trigger_word], '').strip
+    action = params[:text]
     case action
     when 'tabla' then table
     when 'lider' then leader
