@@ -2,12 +2,19 @@ require 'sinatra'
 require 'mechanize'
 require 'json'
 
+get '/' do
+  "Hello World"
+end
+
 post '/gateway' do
-  action = params[:text].gsub(params[:trigger_word], '').strip
-  case action
-  when 'tabla' then table
-  when 'lider' then leader
-  else respond_message 'Error'
+  if params[:text].present?
+    action = params[:text].gsub(params[:trigger_word], '').strip
+    case action
+    when 'tabla' then table
+    when 'lider' then leader
+    end
+  else
+    respond_message 'Error'
   end
 end
 
