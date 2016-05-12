@@ -3,7 +3,7 @@ require 'mechanize'
 require 'json'
 
 get '/' do
-  "Hello World"
+  'Hello World'
 end
 
 post '/gateway' do
@@ -28,17 +28,13 @@ end
 def table
   page = table_page
   table = page.search('.//table').first
-  headers = table.search('.//th').map { |th| clean(th.text) }.to_s + "\n"
+  headers = table.search('.//th').map(&:text)
   trs = table.search('.//tbody//tr')
   rows = trs.map do |tr|
-    tr.search('.//td').map { |td| clean(td.text) }.to_s + "\n"
+    tr.search('.//td').map(&:text)
   end
-  message = "#{headers}\n#{rows}"
+  message = ([headers] + rows).map { |r| r.join ', ' }.join "\n"
   respond_message message
-end
-
-def clean(text)
-  text.delete('"').delete('\\')
 end
 
 def table_page
