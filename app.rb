@@ -15,10 +15,10 @@ def respond_message(message)
   { text: message }.to_json
 end
 
-def table
+def get_table
   page = table_page
   table = page.search('.//table').first
-  headers = table.search('.//th').map { |th| th.text.squish } + "\n"
+  headers = table.search('.//th').map { |th| th.text.squish }.to_s + "\n"
   trs = table.search('.//tbody//tr')
   rows = trs.map do |tr|
     tr.search('.//td').map { |td| td.text.squish }.to_s + "\n"
