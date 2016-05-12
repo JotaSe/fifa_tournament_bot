@@ -56,7 +56,7 @@ end
 
 def loser
   get_table 'player'
-  respond_message "Es MAS MALO DEL MUNDIALITO DEL MUNDO MUNDIAL ES #{@rows.last[1]} con #{@rows.first[9]} puntos WEON MALO"
+  respond_message "Es MAS MALO DEL MUNDIALITO DEL MUNDO MUNDIAL ES #{@rows.last[1]} con #{@rows.last[9]} puntos WEON MALO"
 end
 
 def test(params, message)
