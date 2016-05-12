@@ -7,12 +7,14 @@ post '/gateway' do
   case action
   when 'tabla' then table
   when 'lider' then leader
+  else respond_message 'Error'
   end
 end
 
 def respond_message(message)
   content_type :json
-  { text: message }.to_json
+  { text: message,
+    username: 'MundialitoBot' }.to_json
 end
 
 def get_table
