@@ -3,13 +3,10 @@ require 'mechanize'
 require 'json'
 
 post '/gateway' do
-  message = params[:text].gsub(params[:trigger_word], '').strip
-  action, repo = message.split('_').map { |c| c.strip.downcase }
-
-  test(params, message)
+  action = params[:text].gsub(params[:trigger_word], '').strip
   case action
-  when 'table' then table
-  when 'leader' then leader
+  when 'tabla' then table
+  when 'lider' then leader
   end
 end
 
@@ -20,7 +17,14 @@ end
 
 def table
   page = table_page
-  page.search('.//table').first.search
+  table = page.search('.//table').first
+  headers = table.search('.//th').map { |th| th.text.squish } + "\n"
+  trs = table.search('.//tbody//tr')
+  rows = trs.map do |tr|
+    tr.search('.//td').map { |td| td.text.squish }.to_s + "\n"
+  end
+  message = "#{headers}\n#{rows}"
+  respond_message message
 end
 
 def table_page
