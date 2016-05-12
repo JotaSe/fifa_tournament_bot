@@ -28,13 +28,17 @@ end
 def table
   page = table_page
   table = page.search('.//table').first
-  headers = table.search('.//th').map { |th| th.text.strip }.to_s + "\n"
+  headers = table.search('.//th').map { |th| clean(th.text) }.to_s + "\n"
   trs = table.search('.//tbody//tr')
   rows = trs.map do |tr|
-    tr.search('.//td').map { |td| td.text.strip }.to_s + "\n"
+    tr.search('.//td').map { |td| clean(td.text) }.to_s + "\n"
   end
   message = "#{headers}\n#{rows}"
   respond_message message
+end
+
+def clean(text)
+  text.delete('"').delete('\\')
 end
 
 def table_page
