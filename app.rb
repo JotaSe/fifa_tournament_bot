@@ -4,14 +4,12 @@ require 'json'
 
 post '/gateway' do
   message = params[:text].gsub(params[:trigger_word], '').strip
-  puts params
-  puts message
   action, repo = message.split('_').map { |c| c.strip.downcase }
 
+  test(params, message)
   case action
   when 'table' then table
   when 'leader' then leader
-  when 'test' then test
   end
 end
 
@@ -30,6 +28,6 @@ def table_page
   @agent.get 'http://www.fifagenerator.com/tournament/47617/table/'
 end
 
-def test
-  respond_message 'test'
+def test(params, message)
+  respond_message "params: #{params} | message: #{message}"
 end
