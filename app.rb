@@ -51,12 +51,12 @@ end
 
 def leader
   get_table 'player'
-  respond_message "#{@rows.first[1]} con #{@rows.first[9]} puntos"
+  respond_message "El lider de la tabla es #{@rows.first[1]} con #{@rows.first[9]} puntos"
 end
 
 def loser
   get_table 'player'
-  respond_message "#{@rows.last[1]} con #{@rows.first[9]} puntos WEON MALO"
+  respond_message "Es MAS MALO DEL MUNDIALITO DEL MUNDO MUNDIAL ES #{@rows.last[1]} con #{@rows.first[9]} puntos WEON MALO"
 end
 
 def test(params, message)
