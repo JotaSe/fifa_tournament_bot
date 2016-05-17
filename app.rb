@@ -14,6 +14,7 @@ post '/gateway' do
     when 'lider' then leader
     when 'reglas' then rules
     when 'weon malo' then loser
+    when 'test' then mrkdwn_test
     else respond_message 'Accion desconocida'
     end
   else
@@ -24,7 +25,8 @@ end
 def respond_message(message)
   content_type :json
   { text: message,
-    username: 'MundialitoBot' }.to_json
+    username: 'MundialitoBot',
+    mrkdwn: true }.to_json
 end
 
 def table
@@ -76,4 +78,17 @@ def rules
            '10. Están permitidos los bombos, los lienzos, el fuego de artificio y porristas.'
   message =  _rules.join "\n"
   respond_message message
+end
+
+def mrkdwn_test
+  text = 'tables|are|cool',
+         '---|---|---',
+         '1|2|3',
+         '4|5|6',
+         '7|8|9'
+  respond_message text.join "\n"
+end
+
+def set_tournament(id)
+  @@tournament_id = id
 end
