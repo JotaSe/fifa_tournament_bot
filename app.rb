@@ -86,7 +86,8 @@ def mrkdwn_test
          '1|2|3',
          '4|5|6',
          '7|8|9'
-  respond_message text.join "\n"
+  # respond_message text.join "\n"
+  respond_message "*bold* `code` _italic_ ~strike~"
 end
 
 def set_tournament(id)
