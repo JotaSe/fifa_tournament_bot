@@ -24,7 +24,8 @@ end
 
 def respond_message(message)
   content_type :json
-  { text: message,
+  { response_type: 'in_channel',
+    text: message,
     username: 'MundialitoBot',
     mrkdwn: true }.to_json
 end
